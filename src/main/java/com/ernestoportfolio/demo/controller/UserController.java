@@ -1,7 +1,6 @@
 package com.ernestoportfolio.demo.controller;
-
 import com.ernestoportfolio.demo.model.User;
-import com.ernestoportfolio.demo.repository.UserRepository;
+import com.ernestoportfolio.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,17 +12,27 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
-    // Hämta alla användare
+    @PostMapping
+    public User createUser(@RequestBody User user) {
+        return userService.saveUser(user);
+    }
+
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+
+        return userService.getAllUsers();
     }
 
-    // Hämta användare via e-post (om du vill testa det också)
     @GetMapping("/email/{email}")
     public User getUserByEmail(@PathVariable String email) {
-        return userRepository.findByEmail(email);
+        return userService.getUserByEmail(email);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+        return userService.updateUser(id, updatedUser);
     }
 }
+
