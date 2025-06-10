@@ -31,6 +31,12 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("User not found"));
+    }
+
 
     @Override
     public User updateUser(Long id, User updatedUser) {

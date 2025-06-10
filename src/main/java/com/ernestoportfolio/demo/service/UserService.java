@@ -8,5 +8,8 @@ public interface UserService {
     User saveUser(User user);
     List<User> getAllUsers();
     User getUserByEmail(String email);
+
+    User getUserById(Long id);
+
     User updateUser(Long id, User updatedUser);
 }
